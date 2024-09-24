@@ -2404,6 +2404,9 @@ const data = [
 // 1. 남성 리스트만 나타내주기
 // 2. 아시아 사람들만 나타내기
 // 3. 돈이 6000달러 이상인 사람들만 남기고, 성과 언어 인종만 나타내기
+// 4. 여성만 남기고, credit_card뒤에 #### 붙여주고, 보여주기.
+
+//#region 문제풀이
 
 const asianlist = ["Korean", "Japanese", "Chinese"];
 
@@ -2440,3 +2443,41 @@ const humanGirl = data
   });
 
 console.log(humanGirl);
+
+//#endregion
+
+//#region 안보고 다시 풀기
+
+// const malelist = data.filter((x) => x.gender.includes("Male"));
+
+// console.log(malelist);
+
+// const asian = ["Korean", "Japanese", "Chinese"];
+
+// const asianlist = data.filter((x) => x.race.includes("Asian"));
+// const asianlist2 = data.filter((x) => asian.some((y) => y == x.race));
+// console.log(asianlist);
+// console.log(asianlist2);
+
+// const price = data
+//   .filter((x) => x.money.replace("$", "") >= 6000)
+//   .map((y) => {
+//     const test = {};
+//     test.gender = y.gender;
+//     test.race = y.race;
+//     return test;
+//   });
+
+// console.log(price);
+
+// const creditCard = data
+//   .filter((x) => {
+//     return (x.gender = "Female");
+//   })
+//   .map((x) => {
+//     x.credit_card = `${x.credit_card}####`;
+//     return x;
+//   });
+// console.log(creditCard);
+
+//#endregion

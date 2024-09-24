@@ -1083,16 +1083,34 @@ const data = {
 };
 const newdata = data.result.centerList;
 const main = document.createElement("main");
-const section = document.createElement("section");
-section.classList.add("container");
+const container = document.createElement("section");
+main.appendChild(container);
+
+const realPrice = (
+  isLowestPrice,
+  lowestPrice,
+  originalPrice,
+  priceType,
+  count,
+  period
+) => {
+  const price = isLowestPrice ? lowestPrice : originalPrice;
+  const realPrice = priceType == "period" ? price / period : price / count;
+  return realPrice - (realPrice % 10);
+};
 
 newdata.forEach((x) => {
+  // 카드 만들기
   const card = document.createElement("div");
   card.classList.add("card");
 
-  const iamges = document.createElement("img");
+  // 앨범 만들기
   const album = document.createElement("div");
   album.classList.add("album");
+
+  const img = document.createElement("img");
+  img.src = x.gymPhotoSmall;
+  album.appendChild(img);
 
   const info = document.createElement("div");
   info.classList.add("info");
@@ -1106,11 +1124,16 @@ newdata.forEach((x) => {
   const service = document.createElement("span");
   service.classList.add("service");
 
-  iamges.src = x.gymPhotoSmall;
-
   category.innerText = x.tags;
   gymName.innerText = x.gymName;
-  price.innerText = x.price.originalPrice;
+  price.innerText = `${realPrice(
+    x.price.isLowestPrice,
+    x.price.lowestPrice,
+    x.price.originalPrice,
+    x.price.priceType,
+    x.price.count,
+    x.price.period
+  )}원~/월`;
   service.innerText = x.service.free;
 
   info.appendChild(category);
@@ -1118,10 +1141,11 @@ newdata.forEach((x) => {
   info.appendChild(price);
   info.appendChild(service);
 
-  album.appendChild(iamges);
   card.appendChild(album);
   card.appendChild(info);
-  section.appendChild(card);
+
+  container.appendChild(card);
 });
-main.appendChild(section);
+
+main.appendChild(container);
 document.body.appendChild(main);
